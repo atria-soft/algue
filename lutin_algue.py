@@ -32,11 +32,13 @@ def create(target, module_name):
 		'algue/debug.cpp',
 		'algue/base64.cpp',
 		'algue/sha1.cpp',
+		'algue/sha512.cpp',
 		'algue/md5.cpp'
 		])
 	my_module.add_header_file([
 		'algue/base64.h',
 		'algue/sha1.h',
+		'algue/sha512.h',
 		'algue/md5.h',
 		])
 	my_module.add_path(tools.get_current_path(__file__))
