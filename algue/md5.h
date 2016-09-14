@@ -7,6 +7,9 @@
 
 #include <etk/types.h>
 
+/**
+ * @brief Basic Algue library namespace
+ */
 namespace algue {
 	namespace md5 {
 		std::vector<uint8_t> encode(const uint8_t* _data, int32_t _len);
