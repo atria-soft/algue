@@ -4,7 +4,7 @@
  * @license APACHE v2.0 (see license file)
  */
 
-#include <algue/debug.h>
+#include <algue/debug.hpp>
 
 int32_t algue::getLogId() {
 	static int32_t g_val = elog::registerInstance("algue");

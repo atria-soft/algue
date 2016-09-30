@@ -3,8 +3,8 @@
  * @copyright 2011, Edouard DUPIN, all right reserved
  * @license APACHE v2.0 (see license file)
  */
-#include <etk/types.h>
-#include <algue/sha1.h>
+#include <etk/types.hpp>
+#include <algue/sha1.hpp>
 #include <openssl/sha.h>
 
 std::vector<uint8_t> algue::sha1::encode(const uint8_t* _data, int32_t _len) {
