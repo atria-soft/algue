@@ -5,7 +5,7 @@
  */
 #pragma once
 
-#include <etk/types.hp>
+#include <etk/types.hpp>
 
 /**
  * @brief Basic Algue library namespace
