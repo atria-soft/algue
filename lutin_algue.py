@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import lutin.module as module
+import lutin.debug as debug
 import lutin.tools as tools
 
 
@@ -24,8 +24,7 @@ def get_maintainer():
 def get_version():
 	return [0,2,"dev"]
 
-def create(target, module_name):
-	my_module = module.Module(__file__, module_name, get_type())
+def configure(target, my_module):
 	my_module.add_depend(['elog', 'etk', 'crypto'])
 	my_module.add_extra_flags()
 	my_module.add_src_file([
@@ -41,7 +40,7 @@ def create(target, module_name):
 		'algue/sha512.hpp',
 		'algue/md5.hpp',
 		])
-	my_module.add_path(tools.get_current_path(__file__))
-	return my_module
+	my_module.add_path(".")
+	return True
 
 
