@@ -19,10 +19,10 @@ def get_compagny_name():
 	return "atria-soft"
 
 def get_maintainer():
-	return ["Mr DUPIN Edouard <yui.heero@gmail.com>"]
+	return "authors.txt"
 
 def get_version():
-	return [0,2,"dev"]
+	return "version.txt"
 
 def configure(target, my_module):
 	my_module.add_depend(['elog', 'etk', 'crypto'])
