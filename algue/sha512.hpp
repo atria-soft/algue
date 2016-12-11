@@ -8,6 +8,22 @@
 #include <etk/types.hpp>
 
 namespace algue {
+	class Sha512 {
+		public:
+			Sha512();
+			void update(const uint8_t* _data, uint32_t _len);
+			/**
+			 * @brief get digest value
+			 * @return the digest sha512 value
+			 */
+			std::vector<uint8_t> finalize();
+		protected:
+			void transform(const uint8_t* _data, uint32_t _blockNb);
+			uint32_t m_totLen;
+			uint32_t m_len;
+			std::vector<uint8_t> m_block;
+			uint64_t m_h[8];
+	};
 	namespace sha512 {
 		std::vector<uint8_t> encode(const uint8_t* _data, int32_t _len);
 		inline std::vector<uint8_t> encode(const std::vector<uint8_t>& _data) {
@@ -17,4 +33,5 @@ namespace algue {
 			return algue::sha512::encode(reinterpret_cast<const uint8_t*>(&_data[0]), _data.size());
 		}
 	}
+	std::string stringConvert(std::vector<uint8_t> _data);
 }
