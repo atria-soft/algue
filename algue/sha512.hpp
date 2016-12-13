@@ -11,6 +11,11 @@ namespace algue {
 	class Sha512 {
 		public:
 			Sha512();
+			/**
+			 * @brief Add data to the sha512 calculation
+			 * @param[in] _data Pointer on the data
+			 * @param[in] _len Lenght of the data to add
+			 */
 			void update(const uint8_t* _data, uint32_t _len);
 			/**
 			 * @brief get digest value
@@ -32,6 +37,7 @@ namespace algue {
 		inline std::vector<uint8_t> encode(const std::string& _data) {
 			return algue::sha512::encode(reinterpret_cast<const uint8_t*>(&_data[0]), _data.size());
 		}
+		std::vector<uint8_t> encodeFromFile(const std::string& _filename);
 	}
 	std::string stringConvert(std::vector<uint8_t> _data);
 }

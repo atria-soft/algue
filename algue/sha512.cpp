@@ -44,6 +44,7 @@
 #include <etk/types.hpp>
 #include <algue/sha512.hpp>
 #include <algue/debug.hpp>
+#include <etk/os/FSNode.hpp>
 
 static const uint32_t ALGUE_SHA384_512_BLOCK_SIZE = (1024/8);
 static const uint32_t ALGUE_DIGEST_SIZE = ( 512 / 8);
@@ -230,7 +231,39 @@ std::vector<uint8_t> algue::sha512::encode(const uint8_t* _data, int32_t _len) {
 std::string algue::stringConvert(std::vector<uint8_t> _data) {
 	char buf[2*_data.size()+1];
 	buf[2*_data.size()] = 0;
-	for (int i = 0; i < _data.size(); i++)
-		sprintf(buf+i*2, "%02x", _data[i]);
+	for (size_t iii=0; iii<_data.size(); ++iii) {
+		sprintf(buf+iii*2, "%02x", _data[iii]);
+	}
 	return std::string(buf);
 }
+
+std::vector<uint8_t> algue::sha512::encodeFromFile(const std::string& _filename) {
+	algue::Sha512 ctx;
+	etk::FSNode node(_filename);
+	if (node.exist() == 0) {
+		std::vector<uint8_t> out;
+		out.resize(ALGUE_DIGEST_SIZE, 0);
+		return out;
+	}
+	if (node.fileSize() == 0) {
+		std::vector<uint8_t> out;
+		out.resize(ALGUE_DIGEST_SIZE, 0);
+		return out;
+	}
+	if (node.fileOpenRead() == false) {
+		std::vector<uint8_t> out;
+		out.resize(ALGUE_DIGEST_SIZE, 0);
+		return out;
+	}
+	uint32_t bufferSize = 4096;
+	uint8_t buffer[bufferSize];
+	while (bufferSize == 4096) {
+		bufferSize = node.fileRead(buffer, 1, bufferSize);
+		if (bufferSize != 0) {
+			ctx.update(buffer, bufferSize);
+		}
+	}
+	node.fileClose();
+	return ctx.finalize();
+}
+
