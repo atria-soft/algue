@@ -1,7 +1,7 @@
 /** @file
  * @author Edouard DUPIN
  * @copyright 2011, Edouard DUPIN, all right reserved
- * @license APACHE-2 (see license file)
+ * @license MPL v2.0 (see license file)
  *
  * @license-origin BSD (original license)
  * @source http://www.zedwood.com/article/cpp-sha512-function
