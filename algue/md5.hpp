@@ -12,11 +12,11 @@
  */
 namespace algue {
 	namespace md5 {
-		std::vector<uint8_t> encode(const uint8_t* _data, int32_t _len);
-		inline std::vector<uint8_t> encode(const std::vector<uint8_t>& _data) {
+		etk::Vector<uint8_t> encode(const uint8_t* _data, int32_t _len);
+		inline etk::Vector<uint8_t> encode(const etk::Vector<uint8_t>& _data) {
 			return algue::md5::encode(&_data[0], _data.size());
 		}
-		inline std::vector<uint8_t> encode(const std::string& _data) {
+		inline etk::Vector<uint8_t> encode(const etk::String& _data) {
 			return algue::md5::encode(reinterpret_cast<const uint8_t*>(&_data[0]), _data.size());
 		}
 	}

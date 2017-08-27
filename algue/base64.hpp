@@ -9,13 +9,13 @@
 
 namespace algue {
 	namespace base64 {
-		std::string encode(const uint8_t* _data, int32_t _len);
-		inline std::string encode(const std::vector<uint8_t>& _data) {
+		etk::String encode(const uint8_t* _data, int32_t _len);
+		inline etk::String encode(const etk::Vector<uint8_t>& _data) {
 			return algue::base64::encode(&_data[0], _data.size());
 		}
-		inline std::string encode(const std::string& _data) {
+		inline etk::String encode(const etk::String& _data) {
 			return algue::base64::encode(reinterpret_cast<const uint8_t*>(&_data[0]), _data.size());
 		}
-		std::vector<uint8_t> decode(const std::string& _data);
+		etk::Vector<uint8_t> decode(const etk::String& _data);
 	}
 }

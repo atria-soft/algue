@@ -203,12 +203,12 @@ void algue::Sha512::update(const uint8_t *_data, uint32_t _length) {
 	m_totLen += (block_nb + 1) << 7;
 }
 
-std::vector<uint8_t> algue::Sha512::finalize() {
+etk::Vector<uint8_t> algue::Sha512::finalize() {
 	uint32_t block_nb;
 	uint32_t pm_len;
 	uint32_t len_b;
 	int i;
-	std::vector<uint8_t> out;
+	etk::Vector<uint8_t> out;
 	out.resize(ALGUE_DIGEST_SIZE, 0);
 	block_nb = 1 + ((ALGUE_SHA384_512_BLOCK_SIZE - 17) < (m_len % ALGUE_SHA384_512_BLOCK_SIZE));
 	len_b = (m_totLen + m_len) << 3;
@@ -222,36 +222,36 @@ std::vector<uint8_t> algue::Sha512::finalize() {
 	}
 	return out;
 }
-std::vector<uint8_t> algue::sha512::encode(const uint8_t* _data, int32_t _len) {
+etk::Vector<uint8_t> algue::sha512::encode(const uint8_t* _data, int32_t _len) {
 	algue::Sha512 ctx;
 	ctx.update(_data, _len);
 	return ctx.finalize();
 }
 
-std::string algue::stringConvert(std::vector<uint8_t> _data) {
+etk::String algue::stringConvert(etk::Vector<uint8_t> _data) {
 	char buf[2*_data.size()+1];
 	buf[2*_data.size()] = 0;
 	for (size_t iii=0; iii<_data.size(); ++iii) {
 		sprintf(buf+iii*2, "%02x", _data[iii]);
 	}
-	return std::string(buf);
+	return etk::String(buf);
 }
 
-std::vector<uint8_t> algue::sha512::encodeFromFile(const std::string& _filename) {
+etk::Vector<uint8_t> algue::sha512::encodeFromFile(const etk::String& _filename) {
 	algue::Sha512 ctx;
 	etk::FSNode node(_filename);
 	if (node.exist() == 0) {
-		std::vector<uint8_t> out;
+		etk::Vector<uint8_t> out;
 		out.resize(ALGUE_DIGEST_SIZE, 0);
 		return out;
 	}
 	if (node.fileSize() == 0) {
-		std::vector<uint8_t> out;
+		etk::Vector<uint8_t> out;
 		out.resize(ALGUE_DIGEST_SIZE, 0);
 		return out;
 	}
 	if (node.fileOpenRead() == false) {
-		std::vector<uint8_t> out;
+		etk::Vector<uint8_t> out;
 		out.resize(ALGUE_DIGEST_SIZE, 0);
 		return out;
 	}

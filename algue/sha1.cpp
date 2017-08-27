@@ -7,8 +7,8 @@
 #include <algue/sha1.hpp>
 #include <openssl/sha.h>
 
-std::vector<uint8_t> algue::sha1::encode(const uint8_t* _data, int32_t _len) {
-	std::vector<uint8_t> out;
+etk::Vector<uint8_t> algue::sha1::encode(const uint8_t* _data, int32_t _len) {
+	etk::Vector<uint8_t> out;
 	out.resize(SHA_DIGEST_LENGTH);
 	SHA1(_data, _len, &out[0]);
 	return out;

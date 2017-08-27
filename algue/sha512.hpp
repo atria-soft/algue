@@ -21,23 +21,23 @@ namespace algue {
 			 * @brief get digest value
 			 * @return the digest sha512 value
 			 */
-			std::vector<uint8_t> finalize();
+			etk::Vector<uint8_t> finalize();
 		protected:
 			void transform(const uint8_t* _data, uint32_t _blockNb);
 			uint32_t m_totLen;
 			uint32_t m_len;
-			std::vector<uint8_t> m_block;
+			etk::Vector<uint8_t> m_block;
 			uint64_t m_h[8];
 	};
 	namespace sha512 {
-		std::vector<uint8_t> encode(const uint8_t* _data, int32_t _len);
-		inline std::vector<uint8_t> encode(const std::vector<uint8_t>& _data) {
+		etk::Vector<uint8_t> encode(const uint8_t* _data, int32_t _len);
+		inline etk::Vector<uint8_t> encode(const etk::Vector<uint8_t>& _data) {
 			return algue::sha512::encode(&_data[0], _data.size());
 		}
-		inline std::vector<uint8_t> encode(const std::string& _data) {
+		inline etk::Vector<uint8_t> encode(const etk::String& _data) {
 			return algue::sha512::encode(reinterpret_cast<const uint8_t*>(&_data[0]), _data.size());
 		}
-		std::vector<uint8_t> encodeFromFile(const std::string& _filename);
+		etk::Vector<uint8_t> encodeFromFile(const etk::String& _filename);
 	}
-	std::string stringConvert(std::vector<uint8_t> _data);
+	etk::String stringConvert(etk::Vector<uint8_t> _data);
 }

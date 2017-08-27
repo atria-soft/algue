@@ -6,10 +6,10 @@
 #include <etk/types.hpp>
 #include <algue/base64.hpp>
 
-static const std::string base64Elements = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+static const etk::String base64Elements = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
-const std::vector<uint8_t>& getReverseTable() {
-	static std::vector<uint8_t> table;
+const etk::Vector<uint8_t>& getReverseTable() {
+	static etk::Vector<uint8_t> table;
 	if (table.size() == 0) {
 		table.resize(256,0);
 		for (size_t iii=0; iii<base64Elements.size(); ++iii) {
@@ -27,8 +27,8 @@ static bool isBase64(char _ccc) {
          || _ccc == '/';
 }
 
-std::string algue::base64::encode(const uint8_t* _data, int32_t _len) {
-	std::string out;
+etk::String algue::base64::encode(const uint8_t* _data, int32_t _len) {
+	etk::String out;
 	int32_t iii = 0;
 	int32_t jjj = 0;
 	uint8_t bit3[3];
@@ -66,14 +66,14 @@ std::string algue::base64::encode(const uint8_t* _data, int32_t _len) {
 	return out;
 }
 
-std::vector<uint8_t> algue::base64::decode(const std::string& _data) {
+etk::Vector<uint8_t> algue::base64::decode(const etk::String& _data) {
 	int32_t len = _data.size();
 	int32_t iii = 0;
 	int32_t id = 0;
 	uint8_t bit4[4];
 	uint8_t bit3[3];
-	std::vector<uint8_t> out;
-	const std::vector<uint8_t>& base64ElementsReverse = getReverseTable();
+	etk::Vector<uint8_t> out;
+	const etk::Vector<uint8_t>& base64ElementsReverse = getReverseTable();
 	while (    len--
 	        && _data[id] != '='
 	        && isBase64(_data[id]) == true) {
@@ -88,7 +88,7 @@ std::vector<uint8_t> algue::base64::decode(const std::string& _data) {
 			bit3[1] = ((bit4[1] & 0xf) << 4) + ((bit4[2] & 0x3c) >> 2);
 			bit3[2] = ((bit4[2] & 0x3) << 6) + bit4[3];
 			for (int32_t jjj=0; jjj<3; ++jjj) {
-				out.push_back(bit3[jjj]);
+				out.pushBack(bit3[jjj]);
 			}
 		}
 	}
@@ -103,7 +103,7 @@ std::vector<uint8_t> algue::base64::decode(const std::string& _data) {
 		bit3[1] = ((bit4[1] & 0xf) << 4) + ((bit4[2] & 0x3c) >> 2);
 		bit3[2] = ((bit4[2] & 0x3) << 6) + bit4[3];
 		for (int32_t jjj=0; jjj<iii-1; ++jjj) {
-			out.push_back(bit3[jjj]);
+			out.pushBack(bit3[jjj]);
 		}
 	}
 	return out;
