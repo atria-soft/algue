@@ -6,6 +6,8 @@
 #pragma once
 
 #include <etk/types.hpp>
+#include <etk/types.hpp>
+#include <etk/String.hpp>
 
 namespace algue {
 	namespace base64 {

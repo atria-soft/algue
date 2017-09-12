@@ -22,7 +22,9 @@ const etk::Vector<uint8_t>& getReverseTable() {
 
 
 static bool isBase64(char _ccc) {
-  return    isalnum(_ccc)
+  return    (_ccc >= '0' && _ccc <= '9')
+         || (_ccc >= 'a' && _ccc <= 'z')
+         || (_ccc >= 'A' && _ccc <= 'Z')
          || _ccc == '+'
          || _ccc == '/';
 }

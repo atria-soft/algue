@@ -6,6 +6,8 @@
 #pragma once
 
 #include <etk/types.hpp>
+#include <etk/Vector.hpp>
+#include <etk/String.hpp>
 
 /**
  * @brief Basic Algue library namespace
