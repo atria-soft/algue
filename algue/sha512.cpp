@@ -178,7 +178,7 @@ void algue::Sha512::transform(const uint8_t* _data, uint32_t _blockNumber) {
 }
 
 void algue::Sha512::update(const uint8_t *_data, uint32_t _length) {
-	if (    _data == nullptr
+	if (    _data == null
 	     || _length == 0) {
 		return;
 	}
