@@ -44,7 +44,8 @@
 #include <etk/types.hpp>
 #include <algue/sha512.hpp>
 #include <algue/debug.hpp>
-#include <etk/os/FSNode.hpp>
+#include <etk/path/Path.hpp>
+#include <etk/uri/provider/provider.hpp>
 
 static const uint32_t ALGUE_SHA384_512_BLOCK_SIZE = (1024/8);
 static const uint32_t ALGUE_DIGEST_SIZE = ( 512 / 8);
@@ -237,33 +238,29 @@ etk::String algue::stringConvert(etk::Vector<uint8_t> _data) {
 	return etk::String(buf);
 }
 
-etk::Vector<uint8_t> algue::sha512::encodeFromFile(const etk::String& _filename) {
+etk::Vector<uint8_t> algue::sha512::encodeFromFile(const etk::Uri& _uri) {
 	algue::Sha512 ctx;
-	etk::FSNode node(_filename);
-	if (node.exist() == 0) {
+	auto fileIo = etk::uri::get(_uri);
+	if (fileIo == null) {
+		ALGUE_ERROR("File Does not exist : " << _uri);
 		etk::Vector<uint8_t> out;
 		out.resize(ALGUE_DIGEST_SIZE, 0);
-		return out;
 	}
-	if (node.fileSize() == 0) {
+	if (fileIo->open(etk::io::OpenMode::Read) == false) {
+		ALGUE_ERROR("Can not open (r) the file : " << _uri);
 		etk::Vector<uint8_t> out;
 		out.resize(ALGUE_DIGEST_SIZE, 0);
-		return out;
 	}
-	if (node.fileOpenRead() == false) {
-		etk::Vector<uint8_t> out;
-		out.resize(ALGUE_DIGEST_SIZE, 0);
-		return out;
-	}
+	
 	uint32_t bufferSize = 4096;
 	uint8_t buffer[bufferSize];
 	while (bufferSize == 4096) {
-		bufferSize = node.fileRead(buffer, 1, bufferSize);
+		bufferSize = fileIo->read(buffer, 1, bufferSize);
 		if (bufferSize != 0) {
 			ctx.update(buffer, bufferSize);
 		}
 	}
-	node.fileClose();
+	fileIo->close();
 	return ctx.finalize();
 }
 

@@ -8,6 +8,7 @@
 #include <etk/types.hpp>
 #include <etk/Vector.hpp>
 #include <etk/String.hpp>
+#include <etk/uri/Uri.hpp>
 
 namespace algue {
 	class Sha512 {
@@ -39,7 +40,7 @@ namespace algue {
 		inline etk::Vector<uint8_t> encode(const etk::String& _data) {
 			return algue::sha512::encode(reinterpret_cast<const uint8_t*>(&_data[0]), _data.size());
 		}
-		etk::Vector<uint8_t> encodeFromFile(const etk::String& _filename);
+		etk::Vector<uint8_t> encodeFromFile(const etk::Uri& _uri);
 	}
 	etk::String stringConvert(etk::Vector<uint8_t> _data);
 }
